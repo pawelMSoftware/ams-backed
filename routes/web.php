@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ResourceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,8 +23,8 @@ Route::get('/test', function () {
     return App\Models\User::where('user_id', 1174)->get()->first();
 });
 
-Route::post('/login', 'App\Http\Controllers\LoginController@login')->name('login');
-Route::post('/logout', 'App\Http\Controllers\LoginController@logout')->name('logout');
+Route::post('/login', [App\Http\Controllers\LoginController::class, 'login'])->name('login');
+Route::post('/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
 
-Route::get('/resource/{resourceFile}/download', 'App\Http\Controllers\ResourceController@download')
+Route::get('/resource/{resourceFile}/download', [App\Http\Controllers\ResourceController::class, 'download'])
     ->name('resource.download');
