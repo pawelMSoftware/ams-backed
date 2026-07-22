@@ -15,7 +15,9 @@ class ResourceVersion extends Model
 
     public $timestamps = false;
 
-    protected $dates = ['date'];
+    protected $casts = [
+        'date' => 'datetime',
+    ];
 
     protected static function boot()
     {
