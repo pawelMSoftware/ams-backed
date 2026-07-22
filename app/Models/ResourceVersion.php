@@ -21,7 +21,7 @@ class ResourceVersion extends Model
     {
         parent::boot();
         static::creating(function (ResourceVersion $resourceVersion) {
-            $resourceVersion->date = date("Y-m-d H:i:s");
+            $resourceVersion->date = date('Y-m-d H:i:s');
         });
     }
 }

@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
 
 /**
  * @property int $user_id
@@ -73,6 +71,7 @@ class AMSUser extends User
         if ($this->password === crypt($password, self::PWD_SALT)) {
             return true;
         }
+
         return false;
     }
 
@@ -82,6 +81,7 @@ class AMSUser extends User
             $this->groupsCache = $this->belongsToMany(Group::class, 'groups_users', 'user_id', 'group_id')
                 ->using(GroupsUsers::class);
         }
+
         return $this->groupsCache;
     }
 
@@ -108,8 +108,9 @@ class AMSUser extends User
         /**
          * @todo save group data
          */
-        if (!empty($this->groups)) {
+        if (! empty($this->groups)) {
         }
+
         return $user;
     }
 }

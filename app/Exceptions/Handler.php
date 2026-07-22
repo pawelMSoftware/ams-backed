@@ -5,7 +5,6 @@ namespace App\Exceptions;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -54,8 +53,7 @@ class Handler extends ExceptionHandler
 
     /**
      * added to preserve redirecting to login page if user is not logged-in - especially when using get requests
-     * @param $request
-     * @param AuthenticationException $exception
+     *
      * @return JsonResponse|Response
      */
     protected function unauthenticated($request, AuthenticationException $exception)

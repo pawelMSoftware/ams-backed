@@ -11,13 +11,13 @@ class AMSRedisTest extends AMSTestCase
      *
      * @return void
      */
-    public function testGetWarehousePrefix()
+    public function test_get_warehouse_prefix()
     {
         $warehousePrefix = \AMSRedis::getWarehousePrefix('category');
         $this->assertEquals('category', $warehousePrefix);
     }
 
-    public function testGetKeyName()
+    public function test_get_key_name()
     {
         $keyName = \AMSRedis::getKeyName('category', 'key1');
         $this->assertEquals('category:key1', $keyName);
@@ -26,17 +26,18 @@ class AMSRedisTest extends AMSTestCase
     /**
      * @return void
      */
-    public function testIsJSON()
+    public function test_is_json()
     {
         $this->assertTrue(\AMSRedis::isJSON('{"1": "one"}'));
         $this->assertFalse(\AMSRedis::isJSON('sth'));
     }
 
     /**
-     * @depends testIsJSON
+     * @depends test_is_json
+     *
      * @return void
      */
-    public function testGet()
+    public function test_get()
     {
         \AMSRedis::set('redistest', 'key1', 'value1');
         \AMSRedis::set('redistest', 'key2', 'value2');

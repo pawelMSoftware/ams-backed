@@ -20,6 +20,7 @@ class ResourceRelationFactory extends Factory
     {
         $randomRelationDefinitionId = RelationDefinition::get()->pluck('id')->random();
         $resourceRelationDestId = Resource::inRandomOrder()->limit(1)->first()->id ?? 9999998;
+
         return [
             'source_id' => 9999999,
             'relation_id' => $randomRelationDefinitionId,

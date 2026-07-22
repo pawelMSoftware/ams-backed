@@ -48,7 +48,6 @@ class Resource extends Model
     /**
      * there is a property name `keywords` in resources table
      * so resourceKeywords() method is used instead of keywords()
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function resourceKeywords(): BelongsToMany
     {
@@ -61,6 +60,7 @@ class Resource extends Model
         if (Auth::user()?->user_id) {
             return $this->hasMany(Note::class, 'res_id')->where('author', Auth::user()->login);
         }
+
         return $this->hasMany(Note::class, 'res_id');
     }
 

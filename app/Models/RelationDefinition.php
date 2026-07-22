@@ -12,5 +12,4 @@ class RelationDefinition extends Model
     protected $table = 'relation_definition';
 
     public $timestamps = false;
-
 }

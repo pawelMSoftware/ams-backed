@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Note;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Log;
 
 class NoteController extends Controller
 {
@@ -22,7 +21,6 @@ class NoteController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -32,11 +30,13 @@ class NoteController extends Controller
         if ($request->user()) {
             $this->validate($request, [
                 'resourceId' => ['required', 'exists:App\Models\Resource,id'],
-                'text' => ['required', 'min:' . NOTE::NOTE_MIN_LENGTH, 'max:' . NOTE::NOTE_MAX_LENGTH], // max length in db
+                'text' => ['required', 'min:'.NOTE::NOTE_MIN_LENGTH, 'max:'.NOTE::NOTE_MAX_LENGTH], // max length in db
             ]);
             $note = Note::create(['res_id' => $request['resourceId'], 'author' => $request->user()->login, 'text' => $request['text']]);
+
             return response($note, Response::HTTP_CREATED);
         }
+
         return response('Unauthorized', Response::HTTP_UNAUTHORIZED);
     }
 
@@ -54,7 +54,6 @@ class NoteController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -62,11 +61,11 @@ class NoteController extends Controller
     {
         if ($request->user()) {
             $this->validate($request, [
-                'text' => ['required', 'min:' . NOTE::NOTE_MIN_LENGTH, 'max:' . NOTE::NOTE_MAX_LENGTH], // max length in db
+                'text' => ['required', 'min:'.NOTE::NOTE_MIN_LENGTH, 'max:'.NOTE::NOTE_MAX_LENGTH], // max length in db
             ]);
             $user = $request->user();
             if ($note->author !== $user->login) {
-                return response("Unauthorized", Response::HTTP_UNAUTHORIZED);
+                return response('Unauthorized', Response::HTTP_UNAUTHORIZED);
             }
             $note->text = $request['text'];
             if ($note->save()) {
@@ -75,6 +74,7 @@ class NoteController extends Controller
         } else {
             return response('', Response::HTTP_UNAUTHORIZED);
         }
+
         return response('', Response::HTTP_NO_CONTENT);
     }
 

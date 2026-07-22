@@ -3,11 +3,11 @@
 namespace App\Providers;
 
 use Illuminate\Database\Query\Builder;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\App;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -41,11 +41,12 @@ class AppServiceProvider extends ServiceProvider
 
         Builder::macro('whereAllLike', function ($fields) {
             foreach ($fields as $field => $value) {
-                $isNull = !is_null($value) && $value !== 'null';
-                if (!empty($field) && $isNull) {
+                $isNull = ! is_null($value) && $value !== 'null';
+                if (! empty($field) && $isNull) {
                     $this->where($field, 'LIKE', "%{$value}%");
                 }
             }
+
             return $this;
         });
 

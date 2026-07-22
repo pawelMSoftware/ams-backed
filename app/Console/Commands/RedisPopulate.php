@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\AMS\AMSRedis;
 use App\Models\Category;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -27,8 +26,6 @@ class RedisPopulate extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
     public function handle(): int
     {
@@ -68,9 +65,9 @@ class RedisPopulate extends Command
 
     private function cacheDeepCategories(array $categoryTreePart): void
     {
-        if (!empty($categoryTreePart['children'])) {
+        if (! empty($categoryTreePart['children'])) {
             foreach ($categoryTreePart['children'] as $child) {
-                if (!empty($child['children'])) {
+                if (! empty($child['children'])) {
                     $this->cacheDeepCategories($child);
                 }
                 \AMSRedis::set('category', $child['cat_id'], $child);
@@ -100,6 +97,7 @@ class RedisPopulate extends Command
                 $tree[$item['cat_id']] = $item;
             }
         }
+
         return $tree;
     }
 
@@ -108,18 +106,15 @@ class RedisPopulate extends Command
         if (isset($this->categoriesCount[$catId])) {
             return $this->categoriesCount[$catId][0]->counter;
         }
+
         return 0;
     }
 
-    /**
-     * @param array $groupedCategories
-     * @return array
-     */
     private function getGroupedCategories(array $groupedCategories): array
     {
         collect(Category::orderBy('sort')->orderBy('cat_name')->get())
             ->each(function ($item, $key) use (&$groupedCategories) {
-                if (!isset($groupedCategories[$item->parent_id])) {
+                if (! isset($groupedCategories[$item->parent_id])) {
                     $groupedCategories[$item->parent_id] = [];
                 }
                 $groupedCategories[$item->parent_id][$item->cat_id] = [
@@ -130,6 +125,7 @@ class RedisPopulate extends Command
                     'count' => $this->categoriesCount[$item->cat_id][0]?->counter ?? 0,
                 ];
             });
+
         return $groupedCategories;
     }
 }

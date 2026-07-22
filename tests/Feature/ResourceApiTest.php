@@ -6,14 +6,9 @@ use App\Models\AMSUser;
 use App\Models\Disc;
 use App\Models\Resource;
 use App\Models\ResourceFile;
-use App\Models\RelationDefinition;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\AMSTestCase;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 
 class ResourceApiTest extends AMSTestCase
 {
@@ -22,7 +17,7 @@ class ResourceApiTest extends AMSTestCase
      *
      * @return void
      */
-    public function testResourceData()
+    public function test_resource_data()
     {
         $user = AMSUser::inRandomOrder()->take(1)->get()->first();
         $url = route('resource.show', ['resource' => 99999999], false);
@@ -60,7 +55,7 @@ class ResourceApiTest extends AMSTestCase
         $this->assertArrayHasKey('discs', $resourceData);
     }
 
-    public function testResourceFileDownload()
+    public function test_resource_file_download()
     {
         $user = AMSUser::inRandomOrder()->take(1)->get()->first();
 
@@ -81,9 +76,10 @@ class ResourceApiTest extends AMSTestCase
 
     /**
      * tests filling up / returning resource file disksize and imagesize if it's picture
+     *
      * @return void
      */
-    public function testResourceFileExtraProps()
+    public function test_resource_file_extra_props()
     {
         // image
         $resourceFile = $this->prepareSampleResourceFile('image.jpg');
@@ -117,6 +113,7 @@ class ResourceApiTest extends AMSTestCase
         $resource->disc_id = 4;
         $resource->file_path = 'a/b/';
         $resource->save();
+
         return $resourceFile;
     }
 }

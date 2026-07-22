@@ -21,7 +21,6 @@ Route::get('/test', function () {
     return App\Models\User::where('user_id', 1174)->get()->first();
 });
 
-
 Route::post('/login', 'App\Http\Controllers\LoginController@login')->name('login');
 Route::post('/logout', 'App\Http\Controllers\LoginController@logout')->name('logout');
 

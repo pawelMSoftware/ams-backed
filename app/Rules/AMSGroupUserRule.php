@@ -26,13 +26,14 @@ class AMSGroupUserRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        if (!is_array($value)) {
+        if (! is_array($value)) {
             return false;
         }
         $groups = Group::all()->pluck('group_id')->toArray();
-        if (!empty(array_intersect($value, $groups))) {
+        if (! empty(array_intersect($value, $groups))) {
             return true;
         }
+
         return false;
     }
 

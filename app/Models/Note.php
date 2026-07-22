@@ -10,6 +10,7 @@ class Note extends Model
     use HasFactory;
 
     public const NOTE_MIN_LENGTH = 5;
+
     public const NOTE_MAX_LENGTH = 255;
 
     protected $table = 'notes';
@@ -24,7 +25,7 @@ class Note extends Model
     {
         parent::boot();
         static::creating(function (Note $note) {
-            $note->entered = date("Y-m-d H:i:s");
+            $note->entered = date('Y-m-d H:i:s');
         });
     }
 }

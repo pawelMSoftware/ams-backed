@@ -3,13 +3,10 @@
 namespace Tests\Feature;
 
 use App\Models\AMSUser;
+use App\Models\Note;
 use App\Models\Resource;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\AMSTestCase;
-use App\Models\Note;
-use Illuminate\Support\Facades\Log;
 
 class NoteApiTest extends AMSTestCase
 {
@@ -18,13 +15,13 @@ class NoteApiTest extends AMSTestCase
      *
      * @return void
      */
-    public function testUpdateNote()
+    public function test_update_note()
     {
         $user = AMSUser::inRandomOrder()->take(1)->get()->first();
         $userNotAllowed = AMSUser::where('user_id', '<>', $user->user_id)->inRandomOrder()->take(1)->get()->first();
         $resource = Resource::inRandomOrder()->take(1)->get()->first();
         $text = md5(now());
-        $textUpdated = $text . '__@';
+        $textUpdated = $text.'__@';
 
         $note = Note::create(['res_id' => $resource->id, 'author' => $user->login, 'text' => $text]);
         $url = route('note.update', ['note' => $note->note_id], false);
@@ -57,7 +54,7 @@ class NoteApiTest extends AMSTestCase
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
-    public function testCreateNote()
+    public function test_create_note()
     {
         $user = AMSUser::inRandomOrder()->take(1)->get()->first();
         $resource = Resource::inRandomOrder()->take(1)->get()->first();

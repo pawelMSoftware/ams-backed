@@ -27,7 +27,6 @@ class ResourceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -38,7 +37,7 @@ class ResourceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Resource $id
+     * @param  resource  $id
      * @return \Illuminate\Http\Response
      */
     public function show(Resource $resource)
@@ -54,7 +53,7 @@ class ResourceController extends Controller
         $resourceCategoriesTree = [];
         foreach ($resource->categories as $category) {
             $categoryData = \AMSRedis::get('category', $category->cat_id);
-            if (!empty($categoryData->parents)) {
+            if (! empty($categoryData->parents)) {
                 $mainCategoryId = array_shift($categoryData->parents);
                 $mainCategory = \AMSRedis::get('category', 'main', true)[$mainCategoryId];
                 unset($mainCategory['children']);
@@ -68,10 +67,11 @@ class ResourceController extends Controller
         $data = [
             'resource' => $resource,
             'relation_definition' => RelationDefinition::get()->keyBy('id'),
-             'relations_resources' => $relationsResources,
+            'relations_resources' => $relationsResources,
             'categories_tree' => $resourceCategoriesTree,
             'settings' => ['AMS_ASSETS_URL' => config('app.AMS_ASSETS_URL')],
         ];
+
         return response($data, Response::HTTP_OK);
     }
 
@@ -83,20 +83,21 @@ class ResourceController extends Controller
             return response('resource not exists', Response::HTTP_NOT_FOUND);
         }
         $storageName = \AMSHelper::getStorageNameForDiscAlias($resource->discs->files_alias);
-        $filePath = $resource->file_path . $resourceFile->source_version . '/' . $resourceFile->filename;
+        $filePath = $resource->file_path.$resourceFile->source_version.'/'.$resourceFile->filename;
         if (Storage::disk($storageName)->exists($filePath)) {
             $amsDownload = new AMSDownload(new AMSDownloadPHP);
+
             return $amsDownload->download($filePath, pathinfo($filePath, PATHINFO_BASENAME), $storageName);
         } else {
             return response('resource not exists', Response::HTTP_NOT_FOUND);
         }
+
         return response('no content', Response::HTTP_NO_CONTENT);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

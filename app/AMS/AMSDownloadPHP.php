@@ -2,8 +2,8 @@
 
 namespace App\AMS;
 
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
@@ -21,9 +21,10 @@ class AMSDownloadPHP implements AMSDownloadInterface
             'Content-Type' => 'application/octet-stream',
             'Content-Length' => Storage::disk($storageName)->size($filePath),
         ];
+
         // Log::info(Storage::disk($storageName)->getDriver()->getMetadata());
         return response()->streamDownload(function () use ($filePath, $storageName) {
-            $stream =  Storage::disk($storageName)->readStream($filePath);
+            $stream = Storage::disk($storageName)->readStream($filePath);
             fpassthru($stream);
             if (is_resource($stream)) {
                 fclose($stream);
@@ -31,7 +32,7 @@ class AMSDownloadPHP implements AMSDownloadInterface
         }, $downloadedFileName, $headers);
     }
 
-    function downloadMany(array $filePaths, string $downloadedFileName, string $storageName = ''): string
+    public function downloadMany(array $filePaths, string $downloadedFileName, string $storageName = ''): string
     {
         // TODO: Implement downloadMany() method.
         return '';

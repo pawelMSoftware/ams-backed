@@ -9,11 +9,10 @@ use App\Models\GroupsUsers;
 use Illuminate\Auth\AuthenticationException;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\AMSTestCase;
-use Illuminate\Support\Facades\Log;
 
 class UserApiTest extends AMSTestCase
 {
-    public function testUsersList()
+    public function test_users_list()
     {
         $url = route('user.index', [], false);
 
@@ -41,7 +40,7 @@ class UserApiTest extends AMSTestCase
         $this->assertArrayHasKey('groups', $randomUser);
     }
 
-    public function testUserUpdateWithoutAccess()
+    public function test_user_update_without_access()
     {
         $url = route('user.update', ['user' => 99999999999], false);
         $response = $this->runApi('admin', $url, 'put');
@@ -59,13 +58,12 @@ class UserApiTest extends AMSTestCase
 
     /**
      * @dataProvider userUpdateDataProvider
-     * @param $userId
-     * @param $data
-     * @param $expected
-     * @return void
+     *
+     * @param  $userId
+     *
      * @throws AuthenticationException
      */
-    public function testUserUpdate($data, $expected): void
+    public function test_user_update($data, $expected): void
     {
         $url = route('user.update', ['user' => $data['userId']], false);
         $this->_testUserUpdateAndCreate($url, 'put', $data, $expected);
@@ -231,11 +229,11 @@ class UserApiTest extends AMSTestCase
     /**
      * @throws AuthenticationException
      */
-    public function testUserDelete()
+    public function test_user_delete()
     {
         $user = AMSUser::create([
-            'login' => 'user.' . rand(111111,999999),
-            'email' => 'email' . rand(111111,999999) . '@email.com',
+            'login' => 'user.'.rand(111111, 999999),
+            'email' => 'email'.rand(111111, 999999).'@email.com',
             'password' => 'pass123',
             'hashed' => 1,
         ]);
@@ -252,12 +250,12 @@ class UserApiTest extends AMSTestCase
         $response = $this->runApi($this->getUserNotAllowed(), $url, 'delete');
         $response->assertStatus(Response::HTTP_UNAUTHORIZED);
 
-        $response = $this->runApi('admin', $url , 'delete');
+        $response = $this->runApi('admin', $url, 'delete');
         $response->assertStatus(Response::HTTP_NO_CONTENT);
         $this->assertDatabaseMissing('users', ['user_id' => $user->user_id]);
     }
 
-    public function testUserCreateWithoutAccess()
+    public function test_user_create_without_access()
     {
         $userData = [
             'login' => 'login.123',
@@ -278,18 +276,18 @@ class UserApiTest extends AMSTestCase
 
     /**
      * @dataProvider testUserCreateDataProvider
-     * @param $data
-     * @param $expected
+     *
      * @return void
+     *
      * @throws AuthenticationException
      */
-    public function testUserCreate($data, $expected)
+    public function test_user_create($data, $expected)
     {
         $url = route('user.store', [], false);
         $this->_testUserUpdateAndCreate($url, 'post', $data, $expected);
     }
 
-    public function testUserCreateDataProvider()
+    public function test_user_create_data_provider()
     {
         return [
             // #1
@@ -345,7 +343,7 @@ class UserApiTest extends AMSTestCase
                     ],
                 ],
             ],
-/*
+            /*
                     'email' => 'notvalid@email',
                     'password' => 'Abcd1231',
                     'groups' => 999,
@@ -371,14 +369,13 @@ class UserApiTest extends AMSTestCase
         $userNotAllowed = AMSUser::whereHas('groups', function ($query) use ($notAdminsGroupIds) {
             return $query->whereIn('groups_users.group_id', $notAdminsGroupIds);
         })->inRandomOrder()->take(1)->get()->first();
+
         return $userNotAllowed;
     }
 
     /**
-     * @param string $url
-     * @param $data
-     * @param $expected
-     * @param $userId
+     * @param  $userId
+     *
      * @throws AuthenticationException
      */
     private function _testUserUpdateAndCreate(string $url, string $method, array $data, array $expected): void
@@ -392,9 +389,10 @@ class UserApiTest extends AMSTestCase
             foreach ($data as $field => $value) {
                 if ($field === 'password') {
                     $this->assertTrue($user->isPasswordOk($value));
+
                     continue;
                 }
-                if (!isset($responseJson[$field])) {
+                if (! isset($responseJson[$field])) {
                     continue;
                 }
                 $responseFieldValue = $responseJson[$field];
@@ -407,7 +405,7 @@ class UserApiTest extends AMSTestCase
                 $this->assertEquals($value, $responseFieldValue);
                 $this->assertEquals($value, $user->$field);
             }
-            if (!empty($expected['groupsCount'])) {
+            if (! empty($expected['groupsCount'])) {
                 $this->assertCount($expected['groupsCount'], $user->groups);
             }
 
@@ -416,7 +414,7 @@ class UserApiTest extends AMSTestCase
             $this->assertArrayHasKey('message', $responseJson);
             $this->assertArrayHasKey('errors', $responseJson);
             $this->assertCount($expected['errorsCount'], $responseJson['errors']);
-            if (!empty($expected['errors'])) {
+            if (! empty($expected['errors'])) {
                 $this->assertEquals($expected['errors'], $responseJson['errors']);
             }
         }

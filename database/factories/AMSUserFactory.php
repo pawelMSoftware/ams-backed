@@ -18,6 +18,7 @@ class AMSUserFactory extends Factory
     public function definition()
     {
         $login = fake()->userName();
+
         return [
             'login' => $login,
             'email' => fake()->unique()->safeEmail(),
