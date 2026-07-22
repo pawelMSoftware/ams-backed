@@ -1,0 +1,16 @@
+<?php
+
+namespace PHPSTORM_META {
+
+    registerArgumentsSet(
+        'setting_values',
+        {{ names }}
+    );
+
+
+    expectedArguments(
+        \setting(),
+        0,
+       argumentsSet('setting_values')
+    );
+}
