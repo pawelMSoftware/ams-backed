@@ -30,7 +30,7 @@ class AMSTestCase extends TestCase
     protected function runApi(AMSUser|string $asUser, $url, $method = 'get', $data = []): TestResponse
     {
         if (! empty($asUser)) {
-            if (get_debug_type($asUser) === 'App\Models\AMSUser') {
+            if (get_debug_type($asUser) === \App\Models\AMSUser::class) {
                 $user = $asUser;
             } else {
                 $user = User::where(['login' => $asUser])->first();
