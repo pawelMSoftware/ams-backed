@@ -15,7 +15,7 @@ class NoteApiTest extends AMSTestCase
      *
      * @return void
      */
-    public function test_update_note()
+    public function test_update_note(): void
     {
         $user = AMSUser::inRandomOrder()->take(1)->get()->first();
         $userNotAllowed = AMSUser::where('user_id', '<>', $user->user_id)->inRandomOrder()->take(1)->get()->first();
@@ -54,7 +54,7 @@ class NoteApiTest extends AMSTestCase
         $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
-    public function test_create_note()
+    public function test_create_note(): void
     {
         $user = AMSUser::inRandomOrder()->take(1)->get()->first();
         $resource = Resource::inRandomOrder()->take(1)->get()->first();

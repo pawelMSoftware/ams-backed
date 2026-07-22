@@ -6,14 +6,14 @@ use Tests\AMSTestCase;
 
 class AMSHelperTest extends AMSTestCase
 {
-    public function test_get_storage_for_disc_alias()
+    public function test_get_storage_for_disc_alias(): void
     {
         $this->assertEquals('cache3', \AMSHelper::getStorageNameForDiscAlias('/cache3/'));
         $this->assertEquals('cache3', \AMSHelper::getStorageNameForDiscAlias('/cache3'));
         $this->assertEquals('cache3', \AMSHelper::getStorageNameForDiscAlias('cache3/'));
     }
 
-    public function test_get_flat_categories_array()
+    public function test_get_flat_categories_array(): void
     {
         $jsonFilePath = base_path('database/fixtures/test_tree.json');
         $categoriesTree = json_decode(file_get_contents($jsonFilePath), true);

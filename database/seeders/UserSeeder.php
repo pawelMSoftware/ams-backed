@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $groups = Group::all()->toArray();
         $groupsNumber = count($groups);

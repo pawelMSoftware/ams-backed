@@ -27,7 +27,7 @@ class GenerateSettingsMeta extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $stub = File::get(__DIR__.'/stubs/settings_meta.stub');
 

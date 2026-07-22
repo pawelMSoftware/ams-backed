@@ -18,7 +18,7 @@ class ResourceFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         $typeId = Category::where('parent_id', 10)->inRandomOrder()->limit(1)->get()->first()->cat_id;
         $licenseId = Category::where('parent_id', 31)->inRandomOrder()->limit(1)->get()->first()->cat_id;

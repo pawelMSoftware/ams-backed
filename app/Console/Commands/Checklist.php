@@ -37,7 +37,7 @@ class Checklist extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $separator = '-----------------------------------------------';
         $this->info($separator);

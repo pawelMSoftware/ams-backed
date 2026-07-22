@@ -19,7 +19,7 @@ class ResourceSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         Resource::factory()->count(50)->create(
             // ['author' => $user->login, 'disc_id' => ]

@@ -13,7 +13,7 @@ class AMSTestingSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         \Eloquent::unguard();
         $path = database_path('fixtures/ams_db_structure.sql');

@@ -12,7 +12,7 @@ use Tests\AMSTestCase;
 
 class UserApiTest extends AMSTestCase
 {
-    public function test_users_list()
+    public function test_users_list(): void
     {
         $url = route('user.index', [], false);
 
@@ -40,7 +40,7 @@ class UserApiTest extends AMSTestCase
         $this->assertArrayHasKey('groups', $randomUser);
     }
 
-    public function test_user_update_without_access()
+    public function test_user_update_without_access(): void
     {
         $url = route('user.update', ['user' => 99999999999], false);
         $response = $this->runApi('admin', $url, 'put');
@@ -229,7 +229,7 @@ class UserApiTest extends AMSTestCase
     /**
      * @throws AuthenticationException
      */
-    public function test_user_delete()
+    public function test_user_delete(): void
     {
         $user = AMSUser::create([
             'login' => 'user.'.rand(111111, 999999),
@@ -255,7 +255,7 @@ class UserApiTest extends AMSTestCase
         $this->assertDatabaseMissing('users', ['user_id' => $user->user_id]);
     }
 
-    public function test_user_create_without_access()
+    public function test_user_create_without_access(): void
     {
         $userData = [
             'login' => 'login.123',
@@ -281,13 +281,13 @@ class UserApiTest extends AMSTestCase
      *
      * @throws AuthenticationException
      */
-    public function test_user_create($data, $expected)
+    public function test_user_create($data, $expected): void
     {
         $url = route('user.store', [], false);
         $this->_testUserUpdateAndCreate($url, 'post', $data, $expected);
     }
 
-    public function test_user_create_data_provider()
+    public function test_user_create_data_provider(): void
     {
         return [
             // #1

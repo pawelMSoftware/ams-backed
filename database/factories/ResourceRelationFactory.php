@@ -16,7 +16,7 @@ class ResourceRelationFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         $randomRelationDefinitionId = RelationDefinition::get()->pluck('id')->random();
         $resourceRelationDestId = Resource::inRandomOrder()->limit(1)->first()->id ?? 9999998;

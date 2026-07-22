@@ -15,7 +15,7 @@ class AMSUserFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         $login = fake()->userName();
 

@@ -27,7 +27,7 @@ class UsersManage extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $this->table(['AMS2 Users management'], []);
         $action = $this->choice(

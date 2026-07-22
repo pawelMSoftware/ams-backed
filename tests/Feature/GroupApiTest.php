@@ -12,7 +12,7 @@ class GroupApiTest extends AMSTestCase
      *
      * @return void
      */
-    public function test_groups_list()
+    public function test_groups_list(): void
     {
         $groups = Group::get()->pluck('name', 'group_id')->all();
 

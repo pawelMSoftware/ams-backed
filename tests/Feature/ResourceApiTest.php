@@ -17,7 +17,7 @@ class ResourceApiTest extends AMSTestCase
      *
      * @return void
      */
-    public function test_resource_data()
+    public function test_resource_data(): void
     {
         $user = AMSUser::inRandomOrder()->take(1)->get()->first();
         $url = route('resource.show', ['resource' => 99999999], false);
@@ -55,7 +55,7 @@ class ResourceApiTest extends AMSTestCase
         $this->assertArrayHasKey('discs', $resourceData);
     }
 
-    public function test_resource_file_download()
+    public function test_resource_file_download(): void
     {
         $user = AMSUser::inRandomOrder()->take(1)->get()->first();
 
@@ -79,7 +79,7 @@ class ResourceApiTest extends AMSTestCase
      *
      * @return void
      */
-    public function test_resource_file_extra_props()
+    public function test_resource_file_extra_props(): void
     {
         // image
         $resourceFile = $this->prepareSampleResourceFile('image.jpg');
