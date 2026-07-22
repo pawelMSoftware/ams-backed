@@ -12,8 +12,6 @@ class NoteApiTest extends AMSTestCase
 {
     /**
      * A basic feature test example.
-     *
-     * @return void
      */
     public function test_update_note(): void
     {

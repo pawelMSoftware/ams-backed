@@ -10,8 +10,6 @@ class UserTest extends AMSTestCase
 {
     /**
      * A basic feature test example.
-     *
-     * @return void
      */
     public function test_user_login(): void
     {

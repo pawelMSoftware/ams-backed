@@ -9,8 +9,6 @@ class GroupApiTest extends AMSTestCase
 {
     /**
      * A basic feature test example.
-     *
-     * @return void
      */
     public function test_groups_list(): void
     {

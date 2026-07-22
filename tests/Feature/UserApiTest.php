@@ -277,7 +277,6 @@ class UserApiTest extends AMSTestCase
     /**
      * @dataProvider testUserCreateDataProvider
      *
-     * @return void
      *
      * @throws AuthenticationException
      */

@@ -14,8 +14,6 @@ class ResourceApiTest extends AMSTestCase
 {
     /**
      * A basic feature test example.
-     *
-     * @return void
      */
     public function test_resource_data(): void
     {
@@ -76,8 +74,6 @@ class ResourceApiTest extends AMSTestCase
 
     /**
      * tests filling up / returning resource file disksize and imagesize if it's picture
-     *
-     * @return void
      */
     public function test_resource_file_extra_props(): void
     {
@@ -100,9 +96,6 @@ class ResourceApiTest extends AMSTestCase
         $this->assertEquals('?', $resourceFile->resolution);
     }
 
-    /**
-     * @return mixed
-     */
     private function prepareSampleResourceFile(string $filename = 'file.txt'): ResourceFile
     {
         Disc::firstOrCreate(['disc_id' => 4, 'files_path' => storage_path('testing'), 'files_alias' => '/testing/', 'active' => 'Y']);

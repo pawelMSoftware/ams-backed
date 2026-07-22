@@ -38,7 +38,6 @@ class ResourceController extends Controller
      * Display the specified resource.
      *
      * @param  resource  $id
-     * @return \Illuminate\Http\Response
      */
     public function show(Resource $resource): \Illuminate\Http\Response
     {
@@ -98,7 +97,6 @@ class ResourceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, int $id)
@@ -109,7 +107,6 @@ class ResourceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(int $id)

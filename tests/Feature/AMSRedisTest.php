@@ -8,8 +8,6 @@ class AMSRedisTest extends AMSTestCase
 {
     /**
      * A basic feature test example.
-     *
-     * @return void
      */
     public function test_get_warehouse_prefix(): void
     {
@@ -23,9 +21,6 @@ class AMSRedisTest extends AMSTestCase
         $this->assertEquals('category:key1', $keyName);
     }
 
-    /**
-     * @return void
-     */
     public function test_is_json(): void
     {
         $this->assertTrue(\AMSRedis::isJSON('{"1": "one"}'));
@@ -34,8 +29,6 @@ class AMSRedisTest extends AMSTestCase
 
     /**
      * @depends test_is_json
-     *
-     * @return void
      */
     public function test_get(): void
     {
