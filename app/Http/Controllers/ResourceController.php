@@ -40,7 +40,7 @@ class ResourceController extends Controller
      * @param  resource  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Resource $resource)
+    public function show(Resource $resource): \Illuminate\Http\Response
     {
         $relationsIDs = $resource->relations()->pluck('dest_id')->toArray();
         $relationsInverseIDs = $resource->relations_inverse()->pluck('source_id')->toArray();
@@ -101,7 +101,7 @@ class ResourceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         //
     }
@@ -112,7 +112,7 @@ class ResourceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         //
     }

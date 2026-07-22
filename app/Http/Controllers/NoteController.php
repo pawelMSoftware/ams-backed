@@ -23,7 +23,7 @@ class NoteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\Response
     {
         // @todo FINISH THAT -> tests before -> do some refactor in testUpdateNote
         // @todo consider checking if user is logged-in by moving to separate middleware
@@ -46,7 +46,7 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id)
     {
         //
     }
@@ -57,7 +57,7 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Note $note)
+    public function update(Request $request, Note $note): \Illuminate\Http\Response
     {
         if ($request->user()) {
             $this->validate($request, [
@@ -84,7 +84,7 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         //
     }

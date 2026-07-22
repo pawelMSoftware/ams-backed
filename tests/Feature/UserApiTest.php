@@ -69,7 +69,7 @@ class UserApiTest extends AMSTestCase
         $this->_testUserUpdateAndCreate($url, 'put', $data, $expected);
     }
 
-    public function userUpdateDataProvider()
+    public function userUpdateDataProvider(): array
     {
         $this->createApplication();
         $user = AMSUser::where('login', '<>', 'admin')->inRandomOrder()->take(1)->get()->first();
