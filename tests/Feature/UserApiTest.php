@@ -277,7 +277,6 @@ class UserApiTest extends AMSTestCase
     /**
      * @dataProvider testUserCreateDataProvider
      *
-     *
      * @throws AuthenticationException
      */
     public function test_user_create($data, $expected): void
