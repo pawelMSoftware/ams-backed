@@ -2,23 +2,15 @@
 
 namespace Tests\Feature;
 
-use App\AMS\Enums\GroupType;
 use App\Models\Group;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\AMSTestCase;
-use Tests\TestCase;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\DB;
 
 class GroupsDBCompatibility extends AMSTestCase
 {
     /**
      * A basic feature test example.
-     *
-     * @return void
      */
-    public function testMappingCompatibilityWithDb(): void
+    public function test_mapping_compatibility_with_db(): void
     {
         $groups = Group::all()->toArray();
         foreach ($groups as $group) {

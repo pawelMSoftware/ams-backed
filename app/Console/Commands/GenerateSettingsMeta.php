@@ -24,12 +24,10 @@ class GenerateSettingsMeta extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
-        $stub = File::get(__DIR__ . '/stubs/settings_meta.stub');
+        $stub = File::get(__DIR__.'/stubs/settings_meta.stub');
 
         $names = DB::table('settings')
             ->pluck('name')
@@ -37,7 +35,7 @@ class GenerateSettingsMeta extends Command
 
         $stub = str_replace('{{ names }}', $names->implode(",\n\t\t"), $stub);
 
-        if (!File::isDirectory('.phpstorm.meta.php')) {
+        if (! File::isDirectory('.phpstorm.meta.php')) {
             File::makeDirectory('.phpstorm.meta.php');
         }
 
@@ -45,6 +43,5 @@ class GenerateSettingsMeta extends Command
 
         $this->info('.phpstorm.meta.php/settings.php Generated');
 
-        return;
     }
 }

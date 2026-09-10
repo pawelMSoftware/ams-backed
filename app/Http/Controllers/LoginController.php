@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\AMSUser;
+use App\Models\AMSUser as User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Models\AMSUser as User;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Sanctum\Sanctum;
 use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
@@ -18,7 +16,7 @@ class LoginController extends Controller
         if ($request->user()) {
             return $this->getUserWithData($request->user());
         }
-        $credentials = [ 'login' => $request['login'], 'password' => $request['password'] ];
+        $credentials = ['login' => $request['login'], 'password' => $request['password']];
         $user = User::where('login', $credentials['login'])->first();
 
         /**
@@ -29,6 +27,7 @@ class LoginController extends Controller
 
         if ($isUserAuthenticated) {
             Auth::login($user);
+
             return $this->getUserWithData(Auth::user());
         }
 
@@ -44,6 +43,7 @@ class LoginController extends Controller
     {
         // Auth::logout();
         Auth::guard('web')->logout();
+
         return response()->json('', 205);
     }
 

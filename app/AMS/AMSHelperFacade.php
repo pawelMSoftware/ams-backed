@@ -11,6 +11,6 @@ class AMSHelperFacade extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return '\App\AMS\AMSHelper';
+        return \App\AMS\AMSHelper::class;
     }
 }

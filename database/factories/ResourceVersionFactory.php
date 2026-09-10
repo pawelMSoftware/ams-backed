@@ -14,7 +14,7 @@ class ResourceVersionFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'res_id' => 9999999,

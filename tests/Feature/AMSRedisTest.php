@@ -8,35 +8,29 @@ class AMSRedisTest extends AMSTestCase
 {
     /**
      * A basic feature test example.
-     *
-     * @return void
      */
-    public function testGetWarehousePrefix()
+    public function test_get_warehouse_prefix(): void
     {
         $warehousePrefix = \AMSRedis::getWarehousePrefix('category');
         $this->assertEquals('category', $warehousePrefix);
     }
 
-    public function testGetKeyName()
+    public function test_get_key_name(): void
     {
         $keyName = \AMSRedis::getKeyName('category', 'key1');
         $this->assertEquals('category:key1', $keyName);
     }
 
-    /**
-     * @return void
-     */
-    public function testIsJSON()
+    public function test_is_json(): void
     {
         $this->assertTrue(\AMSRedis::isJSON('{"1": "one"}'));
         $this->assertFalse(\AMSRedis::isJSON('sth'));
     }
 
     /**
-     * @depends testIsJSON
-     * @return void
+     * @depends test_is_json
      */
-    public function testGet()
+    public function test_get(): void
     {
         \AMSRedis::set('redistest', 'key1', 'value1');
         \AMSRedis::set('redistest', 'key2', 'value2');

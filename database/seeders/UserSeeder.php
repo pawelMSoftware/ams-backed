@@ -2,21 +2,18 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\AMSUser as User;
 use App\Models\Group;
 use App\Models\GroupsUsers;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $groups = Group::all()->toArray();
         $groupsNumber = count($groups);

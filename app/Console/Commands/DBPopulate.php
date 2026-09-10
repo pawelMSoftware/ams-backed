@@ -14,7 +14,7 @@ class DBPopulate extends Command
      *
      * @var string
      */
-//    protected $signature = 'db:populate {--db_conf=mysql:to specify not default database config name} {--force}';
+    //    protected $signature = 'db:populate {--db_conf=mysql:to specify not default database config name} {--force}';
     protected $signature = 'db:populate
         {--dbconf=mysql : database configuration to use}
         {--force : force db population even if db is not empty}';
@@ -38,30 +38,30 @@ class DBPopulate extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $appEnv = App::environment();
         if (in_array($appEnv, ['testing', 'production'])) {
             $this->line('cannot run on production or testing env');
+
             return 0;
         }
 
         $this->info('DB dev data population');
         $database = 'mysql';
-        if ($this->hasOption('dbconf') && !empty($this->option('dbconf'))) {
+        if ($this->hasOption('dbconf') && ! empty($this->option('dbconf'))) {
             $database = $this->option('dbconf');
-            $databaseName = config('database.connections.' . $database . '.database');
-            $this->info('for database configuration: ' . $database . ' [' . $databaseName . ']');
+            $databaseName = config('database.connections.'.$database.'.database');
+            $this->info('for database configuration: '.$database.' ['.$databaseName.']');
             DB::setDefaultConnection($database);
         }
         // check if db is not empty
         $dbTables = DB::select('SHOW TABLES');
-        if (!empty($dbTables) && !$this->option('force')) {
+        if (! empty($dbTables) && ! $this->option('force')) {
             $this->warn('given DB is not empty. db:populate should be run on empty database.');
             $this->line('if you would like to continue anyway try with `--force` argument');
+
             return 0;
         }
 
@@ -74,9 +74,9 @@ class DBPopulate extends Command
         ];
         $this->withProgressBar($commandsToRun, function ($command) use ($database) {
             if ($database !== '' && str_starts_with($command, 'db:')) {
-                $command .= ' --database=' . $database;
+                $command .= ' --database='.$database;
             }
-            $this->line(' run: ' . $command);
+            $this->line(' run: '.$command);
             Artisan::call($command);
         });
 

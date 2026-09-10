@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
+use App\AMS\Enums\GroupType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\AMS\Enums\GroupType;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Group extends Model
 {
     use HasFactory;
 
-    public static array $db2constMapping =  [
+    public static array $db2constMapping = [
         'EVERYONE' => GroupType::EVERYONE,
         'AdminsCategory' => GroupType::ADMINS_CATEGORY,
         'AdminsGroup' => GroupType::ADMINS_GROUP,

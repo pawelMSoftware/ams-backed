@@ -20,28 +20,25 @@ class AMSGroupUserRule implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
      * @param  mixed  $value
-     * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes(string $attribute, $value): bool
     {
-        if (!is_array($value)) {
+        if (! is_array($value)) {
             return false;
         }
         $groups = Group::all()->pluck('group_id')->toArray();
-        if (!empty(array_intersect($value, $groups))) {
+        if (! empty(array_intersect($value, $groups))) {
             return true;
         }
+
         return false;
     }
 
     /**
      * Get the validation error message.
-     *
-     * @return string
      */
-    public function message()
+    public function message(): string
     {
         return __('validation.users.no_group');
     }

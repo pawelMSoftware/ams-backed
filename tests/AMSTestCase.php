@@ -7,21 +7,18 @@ use App\Models\AMSUser;
 use App\Models\AMSUser as User;
 use App\Models\GroupsUsers;
 use Database\Seeders\AMSTestingSeeder;
-use Database\Seeders\DBTestSeeder;
-use Database\Seeders\UserSeeder;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Redis;
-use Laravel\Sanctum\Sanctum;
 use Illuminate\Testing\TestResponse;
-use Illuminate\Support\Facades\Log;
+use Laravel\Sanctum\Sanctum;
 
 class AMSTestCase extends TestCase
 {
     use CreatesApplication;
     use DatabaseTransactions;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         Redis::connection('tests');
@@ -30,15 +27,10 @@ class AMSTestCase extends TestCase
         $this->checkAdminPrivileges();
     }
 
-    /**
-     * @param $asUser
-     * @param $url
-     * @return \Illuminate\Testing\TestResponse
-     */
     protected function runApi(AMSUser|string $asUser, $url, $method = 'get', $data = []): TestResponse
     {
-        if (!empty($asUser)) {
-            if (get_debug_type($asUser) === 'App\Models\AMSUser') {
+        if (! empty($asUser)) {
+            if (get_debug_type($asUser) === \App\Models\AMSUser::class) {
                 $user = $asUser;
             } else {
                 $user = User::where(['login' => $asUser])->first();
@@ -52,23 +44,21 @@ class AMSTestCase extends TestCase
             'Accept' => 'application/json',
             'X-Requested-With' => 'XMLHttpRequest',
         ];
+
         return $this->$method($url, $data, $headers);
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         parent::tearDown();
     }
 
-    /**
-     * @return void
-     */
     private function checkAdminPrivileges(): void
     {
         $adminUser = AMSUser::where('login', 'admin')->get()->first();
         GroupsUsers::updateOrCreate([
             'user_id' => $adminUser->user_id,
-            'group_id' => GroupType::ADMINS_GROUP->value
+            'group_id' => GroupType::ADMINS_GROUP->value,
         ]);
     }
 }

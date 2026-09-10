@@ -2,30 +2,26 @@
 
 namespace Database\Seeders;
 
-use App\Models\AMSUser;
 use App\Models\Keyword;
+use App\Models\Note;
+use App\Models\Resource;
 use App\Models\ResourceCategory;
+use App\Models\ResourceFile;
 use App\Models\ResourceKeyword;
 use App\Models\ResourceRelation;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use App\Models\Resource;
 use App\Models\ResourceVersion;
-use App\Models\ResourceFile;
-use App\Models\Note;
+use Illuminate\Database\Seeder;
 
 class ResourceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
         Resource::factory()->count(50)->create(
             // ['author' => $user->login, 'disc_id' => ]
-        )->each(function($resource) {
+        )->each(function ($resource) {
             // set CATEGORY
             $resourceCategoryData = $this->generateResourceCategoryArray($resource->id);
             ResourceCategory::insert($resourceCategoryData);
@@ -54,8 +50,6 @@ class ResourceSeeder extends Seeder
 
     /**
      * generates array for given $resourceId with random sub categories for every main category (2 levels)
-     * @param $resourceId
-     * @return array
      */
     private function generateResourceCategoryArray($resourceId): array
     {
@@ -69,9 +63,10 @@ class ResourceSeeder extends Seeder
             $randomCatId = array_rand($category['children']);
             $categories[] = $randomCatId;
         }
-        $resourceCategories = array_map(function($value) use ($resourceId) {
+        $resourceCategories = array_map(function ($value) use ($resourceId) {
             return ['res_id' => $resourceId, 'cat_id' => $value];
         }, $categories);
+
         return $resourceCategories;
     }
 }

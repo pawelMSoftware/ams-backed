@@ -9,10 +9,8 @@ class GroupApiTest extends AMSTestCase
 {
     /**
      * A basic feature test example.
-     *
-     * @return void
      */
-    public function testGroupsList()
+    public function test_groups_list(): void
     {
         $groups = Group::get()->pluck('name', 'group_id')->all();
 

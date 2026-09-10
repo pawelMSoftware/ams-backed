@@ -11,8 +11,6 @@ class CreateDBStructure extends Seeder
 {
     /**
      * Legacy db structure and data population
-     *
-     * @return void
      */
     public function run(): void
     {

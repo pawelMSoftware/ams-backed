@@ -15,13 +15,15 @@ class ResourceVersion extends Model
 
     public $timestamps = false;
 
-    protected $dates = ['date'];
+    protected $casts = [
+        'date' => 'datetime',
+    ];
 
     protected static function boot()
     {
         parent::boot();
         static::creating(function (ResourceVersion $resourceVersion) {
-            $resourceVersion->date = date("Y-m-d H:i:s");
+            $resourceVersion->date = date('Y-m-d H:i:s');
         });
     }
 }

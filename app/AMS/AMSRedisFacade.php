@@ -8,6 +8,6 @@ class AMSRedisFacade extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return '\App\AMS\AMSRedis';
+        return \App\AMS\AMSRedis::class;
     }
 }

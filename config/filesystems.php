@@ -45,21 +45,21 @@ return [
         'assets' => [
             'driver' => 'local',
             'root' => env('AMS_DISK_ASSETS'),
-            'url' => trim(env('AMS_ASSETS_URL'),'/').'/assets',
+            'url' => trim(env('AMS_ASSETS_URL'), '/').'/assets',
             'visibility' => 'public',
         ],
 
         'cache2' => [
             'driver' => 'local',
             'root' => env('AMS_DISK_CACHE2'),
-            'url' => trim(env('AMS_ASSETS_URL'),'/').'/cache2',
+            'url' => trim(env('AMS_ASSETS_URL'), '/').'/cache2',
             'visibility' => 'public',
         ],
 
         'cache3' => [
             'driver' => 'local',
             'root' => env('AMS_DISK_CACHE3'),
-            'url' => trim(env('AMS_ASSETS_URL'),'/').'/cache3',
+            'url' => trim(env('AMS_ASSETS_URL'), '/').'/cache3',
             'visibility' => 'public',
         ],
 

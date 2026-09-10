@@ -2,21 +2,16 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\AMSUser as User;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\AMSTestCase;
-use Illuminate\Support\Facades\Log;
-use App\Models\AMSUser as User;
 
 class UserTest extends AMSTestCase
 {
     /**
      * A basic feature test example.
-     *
-     * @return void
      */
-    public function testUserLogin()
+    public function test_user_login(): void
     {
         $user = User::with('groups')->get()->random(1)->first();
         $data = [
@@ -34,14 +29,14 @@ class UserTest extends AMSTestCase
         $this->assertEquals($user->groups()->first()->group_id, $responseUser['groups'][0]['group_id']);
     }
 
-    public function testUserLogout()
+    public function test_user_logout(): void
     {
         $user = User::with('groups')->get()->random(1)->first();
         $response = $this->runApi($user->login, route('user.logout'), 'post');
         $response->assertStatus(Response::HTTP_RESET_CONTENT);
     }
 
-    public function testUserPasswordChange()
+    public function test_user_password_change(): void
     {
         $this->markTestSkipped('do it later');
     }

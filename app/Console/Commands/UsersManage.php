@@ -24,10 +24,8 @@ class UsersManage extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $this->table(['AMS2 Users management'], []);
         $action = $this->choice(
@@ -40,6 +38,7 @@ class UsersManage extends Command
         } elseif ($action === 'cleaning') {
             $this->startCleaning();
         }
+
         return 0;
     }
 
@@ -49,15 +48,15 @@ class UsersManage extends Command
         $admin = User::where('login', 'admin')->get()->first();
         $admin->password = $password;
         $admin->save();
-        $passwordHidden = $password[0] .  str_repeat('*', strlen($password) - 2) . $password[strlen($password) - 1];
-        $this->info('main admin password has been changed into ' . $passwordHidden);
+        $passwordHidden = $password[0].str_repeat('*', strlen($password) - 2).$password[strlen($password) - 1];
+        $this->info('main admin password has been changed into '.$passwordHidden);
     }
 
     private function startCleaning(): void
     {
         if ($this->confirm('Are you sure you want to delete all the users except admin?')) {
             $removedNumber = User::where('login', '<>', 'admin')->delete();
-            $this->info($removedNumber . ' records where deleted');
+            $this->info($removedNumber.' records where deleted');
         }
     }
 }

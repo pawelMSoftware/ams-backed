@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ResourceRelation extends Model
 {
@@ -15,7 +16,7 @@ class ResourceRelation extends Model
 
     public $primaryKey = 'rel_id';
 
-    public function definitions()
+    public function definitions(): HasMany
     {
         return $this->hasMany(RelationDefinition::class, 'id', 'relation_id');
     }
